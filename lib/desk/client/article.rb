@@ -14,7 +14,7 @@ module Desk
       # @see http://dev.desk.com/API/articles/#list
       def articles(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = get("articles",options)
+        get("articles", options)
       end
 
       # Returns extended information on a single article
@@ -29,7 +29,7 @@ module Desk
       # @see http://dev.desk.com/API/articles/#show
       def article(id, *args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = get("articles/#{id}",options)
+        get("articles/#{id}", options)
       end
 
       # Creates a new article
@@ -42,7 +42,7 @@ module Desk
       # @see http://dev.desk.com/API/articles/#create
       def create_article(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = post("articles",options)
+        post("articles", options)
       end
 
       # Updates a single article
@@ -56,7 +56,7 @@ module Desk
       # @see http://dev.desk.com/API/articles/#update
       def update_article(id, *args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = put("articles/#{id}", options)
+        put("articles/#{id}", options)
       end
 
       # Deletes a single article
@@ -68,7 +68,7 @@ module Desk
       # @authenticated true
       # @see http://dev.desk.com/API/articles/#delete
       def delete_article(id)
-        response = delete("articles/#{id}")
+        delete("articles/#{id}")
       end
     end
   end

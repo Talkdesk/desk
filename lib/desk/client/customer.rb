@@ -2,157 +2,69 @@ module Desk
   class Client
     # Defines methods related to customers
     module Customer
-      # Returns extended information of customers
+      # Returns a list of customers
       #
-      #   @option options [Boolean, String, Integer]
-      #   @example Return extended information for customers
+      #   @option options [Hash]
+      #   @example Return extended information for customers with optional params
       #     Desk.customers
       #     Desk.customers(:page => 1, :per_page => 3)
       # @format :json
       # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers
+      # @see http://dev.desk.com/API/customers/#list
       def customers(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        get("customers",options)
+        get("customers", options)
       end
-
-        # Returns extended information of customers using search parameters
-        #
-        #   @option options [Boolean, String, Integer]
-        #   @example Return extended information for customers
-        #     Desk.customers
-        #     Desk.customers(:since_id => 12345, :count => 5)
-        # @format :json
-        # @authenticated true
-        # @see http://dev.desk.com/docs/api/customers
-        def search_customers(*args)
-          options = args.last.is_a?(Hash) ? args.pop : {}
-          get("customers/search",options)
-        end
 
       # Returns extended information on a single customer
       #
-      #   @option options [String]
       #   @example Return extended information for customer 12345
       #     Desk.customer(12345)
       # @format :json
       # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/show
+      # @see http://dev.desk.com/API/customers/#show
       def customer(id)
-        response = get("customers/#{id}")
-        response.customer
+        get("customers/#{id}")
       end
 
       # Create a new customer
       #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.create_customer(:name => "Chris Warren", :twitter => "cdwarren")
+      #   @option options [Hash]
+      #   @example Create a new customer
+      #     Desk.create_customer(:first_name => "Chris", :last_name => "Warren")
       # @format :json
       # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/create
+      # @see http://dev.desk.com/API/customers/#create
       def create_customer(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = post("customers",options)
-        if response['success']
-          return response['results']['customer']
-        else
-          return response
-        end
+        post("customers", options)
       end
 
       # Update a customer
       #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.update_customer(12345, :name => "Christopher Warren")
+      #   @option options [Hash]
+      #   @example Update a customer's first and last names
+      #     Desk.update_customer(1, :first_name => "Johnny", :last_name => "Doe")
       # @format :json
       # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/update
+      # @see http://dev.desk.com/API/customers/#update
       def update_customer(id, *args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        response = put("customers/#{id}",options)
-        if response['success']
-          return response['results']['customer']
-        else
-          return response
-        end
+        put("customers/#{id}", options)
       end
 
-      # Create a new customer email
+      # Returns extended information of customers using search parameters
       #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.create_customer_email(12345, "foo@example.com")
+      #   @option options [Hash]
+      #   @example Return extended information for customers
+      #     Desk.search_customers
+      #     Desk.search_customers(:first_name => "John", :last_name => "Doe")
       # @format :json
       # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/emails/create
-      def create_customer_email(id, email, *args)
+      # @see http://dev.desk.com/API/customers/#search
+      def search_customers(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        options.merge!({:email => email})
-        response = post("customers/#{id}/emails",options)
-        if response['success']
-          return response['results']['email']
-        else
-          return response
-        end
-      end
-
-      # Update a customer's email
-      #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.update_customer_email(12345, 12345, :email => "foo@example.com")
-      #     Desk.update_customer_email(12345, 12345, :customer_contact_type => "work")
-      # @format :json
-      # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/emails/update
-      def update_customer_email(id, email_id, *args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        response = put("customers/#{id}/emails/#{email_id}",options)
-        if response['success']
-          return response['results']['email']
-        else
-          return response
-        end
-      end
-
-      # Create a new customer phone number
-      #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.create_customer_phone(12345, "555-368-7147")
-      # @format :json
-      # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/phones/create
-      def create_customer_phone(id, phone, *args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        options.merge!({:phone => phone})
-        response = post("customers/#{id}/phones",options)
-        if response['success']
-          return response['results']['phone']
-        else
-          return response
-        end
-      end
-
-      # Update a customer's phone number
-      #
-      #   @option options [String]
-      #   @example Return extended information for 12345
-      #     Desk.update_customer_phone(12345, 12345, :phone => "555-368-7147")
-      #     Desk.update_customer_phone(12345, 12345, :customer_contact_type => "work")
-      # @format :json
-      # @authenticated true
-      # @see http://dev.desk.com/docs/api/customers/phones/update
-      def update_customer_phone(id, phone_id, *args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        response = put("customers/#{id}/phones/#{phone_id}",options)
-        if response['success']
-          return response['results']['phone']
-        else
-          return response
-        end
+        get("customers/search", options)
       end
     end
   end

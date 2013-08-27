@@ -1,0 +1,119 @@
+{
+  "_embedded": {
+    "entries": [
+      {
+        "_links": {
+          "cases": {
+            "class": "case",
+            "href": "/api/v2/customers/1/cases"
+          },
+          "locked_by": null,
+          "self": {
+            "class": "customer",
+            "href": "/api/v2/customers/1"
+          }
+        },
+        "addresses": [
+          {
+            "type": "work",
+            "value": "123 Main St, San Francisco, CA 94105"
+          }
+        ],
+        "background": "This guy can be a challenge to work with",
+        "company": "ACME, Inc",
+        "created_at": "2013-08-21T00:15:04Z",
+        "custom_fields": {
+          "level": "vip"
+        },
+        "emails": [
+          {
+            "type": "work",
+            "value": "john@acme.com"
+          },
+          {
+            "type": "home",
+            "value": "john@home.com"
+          }
+        ],
+        "external_id": null,
+        "first_name": "John",
+        "language": "en_us",
+        "last_name": "Doe",
+        "locked_until": null,
+        "phone_numbers": [
+          {
+            "type": "work",
+            "value": "123-456-7890"
+          }
+        ],
+        "title": "Senior Ninja",
+        "updated_at": "2013-08-21T00:15:04Z"
+      },
+      {
+        "_links": {
+          "cases": {
+            "class": "case",
+            "href": "/api/v2/customers/1/cases"
+          },
+          "locked_by": null,
+          "self": {
+            "class": "customer",
+            "href": "/api/v2/customers/2"
+          }
+        },
+        "addresses": [
+          {
+            "type": "work",
+            "value": "123 Main St, San Francisco, CA 94105"
+          }
+        ],
+        "background": "Easy to work with",
+        "company": "ACME, Inc",
+        "created_at": "2013-08-21T00:15:04Z",
+        "custom_fields": {
+          "level": "vip"
+        },
+        "emails": [
+          {
+            "type": "work",
+            "value": "bob@acme.com"
+          },
+          {
+            "type": "home",
+            "value": "bob@home.com"
+          }
+        ],
+        "external_id": null,
+        "first_name": "Bob",
+        "language": "en_us",
+        "last_name": "Doe",
+        "locked_until": null,
+        "phone_numbers": [
+          {
+            "type": "work",
+            "value": "123-456-7890"
+          }
+        ],
+        "title": "Senior Ninja",
+        "updated_at": "2013-08-21T00:15:04Z"
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "class": "page",
+      "href": "/api/v2/customers?page=1&per_page=30"
+    },
+    "last": {
+      "class": "page",
+      "href": "/api/v2/customers?page=1&per_page=30"
+    },
+    "next": null,
+    "previous": null,
+    "self": {
+      "class": "page",
+      "href": "/api/v2/customers?page=1&per_page=30"
+    }
+  },
+  "total_entries": 2
+}

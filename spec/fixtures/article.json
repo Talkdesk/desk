@@ -1,50 +1,39 @@
 {
-        "article":
-        {
-                "id":13,
-                "subject":"API Tips",
-                "show_in_portal":true,
-                "main_content":"Tips on using our API",
-                "agent_content":null,
-                "email":"Tips on using our API",
-                "chat":"Tips on using our API",
-                "twitter":"Tips on using our API",
-                "question_answer":"Tips on using our API",
-                "phone":"Tips on using our API",
-                "quickcode":null,
-                "created_by":
-                {
-                        "user":
-                        {
-                                "id":1,
-                                "name":"API User",
-                                "name_public":"API User",
-                                "email":"apiuser@yoursite.com",
-                                "created_at":"2011-01-13T22:41:42Z",
-                                "updated_at":"2011-01-19T22:04:33Z",
-                                "user_level":"admin",
-                                "login_count":9,
-                                "time_zone":"Pacific Time (US & Canada)",
-                                "last_login_at":"2011-01-19T18:21:52Z",
-                                "current_login_at":"2011-01-19T22:04:33Z"
-                        }
+        "_links": {
+                "self": {
+                        "class": "article",
+                        "href": "/api/v2/articles/1"
                 },
-                "updated_by":
-                {
-                        "user":
-                        {
-                                "id":1,
-                                "name":"API User",
-                                "name_public":"API User",
-                                "email":"apiuser@yoursite.com",
-                                "created_at":"2011-01-13T22:41:42Z",
-                                "updated_at":"2011-01-19T22:04:33Z",
-                                "user_level":"admin",
-                                "login_count":9,
-                                "time_zone":"Pacific Time (US & Canada)",
-                                "last_login_at":"2011-01-19T18:21:52Z",
-                                "current_login_at":"2011-01-19T22:04:33Z"
-                        }
+                "topic": {
+                        "class": "topic",
+                        "href": "/api/v2/topics/1"
+                },
+                "translations": {
+                        "class": "article_translation",
+                        "href": "/api/v2/articles/1/translations"
                 }
-        }
+        },
+        "body": "<p>Awesome apples</p>",
+        "body_chat": "Awesome apples",
+        "body_chat_auto": true,
+        "body_email": "Email for Awesome apples",
+        "body_email_auto": false,
+        "body_facebook": "Awesome apples",
+        "body_facebook_auto": true,
+        "body_phone": "Awesome apples",
+        "body_phone_auto": true,
+        "body_qna": "Awesome apples",
+        "body_qna_auto": true,
+        "body_twitter": "Awesome apples",
+        "body_twitter_auto": true,
+        "body_web_callback": "<p>Awesome Apples</p>",
+        "body_web_callback_auto": false,
+        "created_at": "2013-08-21T00:15:04Z",
+        "in_support_center": true,
+        "internal_notes": "Notes to the agent here",
+        "position": 1,
+        "publish_at": "2013-08-21T00:20:04Z",
+        "quickcode": "AWESOME",
+        "subject": "Awesome Subject",
+        "updated_at": "2013-08-21T00:20:04Z"
 }

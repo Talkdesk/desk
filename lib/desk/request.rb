@@ -62,11 +62,7 @@ module Desk
     end
 
     def formatted_path(path)
-      if(self.version == "v1")
         [path, format].compact.join('.')
-      else
-        path
-      end
     end
   end
 end

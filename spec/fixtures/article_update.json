@@ -1,54 +1,39 @@
 {
-        "success":true,
-        "results":
-        {
-                "article":
-                {
-                        "id":13,
-                        "subject":"API Tips",
-                        "show_in_portal":true,
-                        "main_content":"Tips on using our API",
-                        "agent_content":null,
-                        "email":"Tips on using our API",
-                        "chat":"Tips on using our API",
-                        "twitter":"Tips on using our API",
-                        "question_answer":"Tips on using our API",
-                        "phone":"Tips on using our API",
-                        "quickcode":null,
-                        "created_by":
-                        {
-                                "user":
-                                {
-                                        "id":1,
-                                        "name":"API User",
-                                        "name_public":"API User",
-                                        "email":"apiuser@yoursite.com",
-                                        "created_at":"2011-01-13T22:41:42Z",
-                                        "updated_at":"2011-01-19T22:04:33Z",
-                                        "user_level":"admin",
-                                        "login_count":9,
-                                        "time_zone":"Pacific Time (US & Canada)",
-                                        "last_login_at":"2011-01-19T18:21:52Z",
-                                        "current_login_at":"2011-01-19T22:04:33Z"
-                                }
-                        },
-                        "updated_by":
-                        {
-                                "user":
-                                {
-                                        "id":1,
-                                        "name":"API User",
-                                        "name_public":"API User",
-                                        "email":"apiuser@yoursite.com",
-                                        "created_at":"2011-01-13T22:41:42Z",
-                                        "updated_at":"2011-01-19T22:04:33Z",
-                                        "user_level":"admin",
-                                        "login_count":9,
-                                        "time_zone":"Pacific Time (US & Canada)",
-                                        "last_login_at":"2011-01-19T18:21:52Z",
-                                        "current_login_at":"2011-01-19T22:04:33Z"
-                                }
-                        }
+        "_links": {
+                "self": {
+                        "class": "article",
+                        "href": "/api/v2/articles/1"
+                },
+                "topic": {
+                        "class": "topic",
+                        "href": "/api/v2/topics/2"
+                },
+                "translations": {
+                        "class": "article_translation",
+                        "href": "/api/v2/articles/1/translations"
                 }
-        }
+        },
+        "body": "<strong>Use Desk.com</strong>",
+        "body_chat": "Use Desk.com",
+        "body_chat_auto": true,
+        "body_email": "Email just doesn't cut it",
+        "body_email_auto": false,
+        "body_facebook": "Use Desk.com",
+        "body_facebook_auto": true,
+        "body_phone": "Use Desk.com",
+        "body_phone_auto": true,
+        "body_qna": "Use Desk.com",
+        "body_qna_auto": true,
+        "body_twitter": "Use Desk.com in 140 chars or less",
+        "body_twitter_auto": false,
+        "body_web_callback": "<strong>Use Desk.com</strong>",
+        "body_web_callback_auto": false,
+        "created_at": "2013-08-21T00:15:04Z",
+        "in_support_center": true,
+        "internal_notes": "Notes to the agent here",
+        "position": 1,
+        "publish_at": "2013-08-21T00:20:04Z",
+        "quickcode": "AWESOME",
+        "subject": "How to make your customers happy",
+        "updated_at": "2013-08-21T00:20:04Z"
 }

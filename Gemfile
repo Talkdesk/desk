@@ -4,9 +4,9 @@ gemspec
 
 
 group :development do
-  gem "ruby-debug"
+  gem "debugger"
 end
 
 group :test do
-  gem "ruby-debug"
+  gem "debugger"
 end

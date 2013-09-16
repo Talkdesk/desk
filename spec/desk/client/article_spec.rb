@@ -12,21 +12,21 @@ describe Desk::Client do
         context "lookup" do
 
           before do
-            stub_get("topics/1/articles.#{format}").
+            stub_get("articles.#{format}").
               to_return(:body => fixture("articles.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should post to the correct resource" do
-            @client.articles(1)
-            a_get("topics/1/articles.#{format}").
+            @client.articles
+            a_get("articles.#{format}").
               should have_been_made
           end
 
           it "should return the articles" do
-            articles = @client.articles(1)
+            articles = @client.articles
 
-            articles.results.should be_a Array
-            articles.results.first.article.id.should == 13
+            articles.entries.should be_a Array
+            articles.entries.first._links.self[:class].should == 'article'
           end
 
         end
@@ -37,21 +37,21 @@ describe Desk::Client do
         context "lookup" do
 
           before do
-            stub_get("articles/13.#{format}").
+            stub_get("articles/1.#{format}").
               to_return(:body => fixture("article.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
-            @client.article(13)
-            a_get("articles/13.#{format}").
+            @client.article(1)
+            a_get("articles/1.#{format}").
               should have_been_made
           end
 
-          it "should return up to 100 cases worth of extended information" do
-            article = @client.article(13)
+          it "should return an article entry" do
+            article = @client.article(1)
 
-            article.id.should == 13
-            article.subject.should == "API Tips"
+            article._links.self[:class].should == "article"
+            article.subject.should == "Awesome Subject"
           end
 
         end
@@ -60,22 +60,24 @@ describe Desk::Client do
       describe ".create_article" do
 
         context "create" do
+          let(:subject) { "How to make your customers happy" }
 
           before do
-            stub_post("topics/1/articles.#{format}").
+            stub_post("articles.#{format}").
               to_return(:body => fixture("article_create.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should post to the correct resource" do
-            @client.create_article(1, :subject => "API Tips", :main_content => "Tips on using our API")
-            a_post("topics/1/articles.#{format}").
+            @client.create_article(:subject => "API Tips", :main_content => "Tips on using our API")
+            a_post("articles.#{format}").
               should have_been_made
           end
 
-          it "should return the articles" do
-            article = @client.create_article(1, :subject => "API Tips", :main_content => "Tips on using our API")
+          it "should return the new article" do
+            article = @client.create_article(:subject => subject, :body => "<strong>Use Desk.com</strong>")
 
-            article.id.should == 13
+            article._links.self[:class].should == 'article'
+            article.subject.should == subject
           end
 
         end
@@ -84,6 +86,8 @@ describe Desk::Client do
       describe ".update_article" do
 
         context "update" do
+          let(:subject) {  "How to make your customers happy" }
+          let(:body) { "<strong>Use Desk.com</strong>" }
 
           before do
             stub_put("articles/1.#{format}").
@@ -91,16 +95,16 @@ describe Desk::Client do
           end
 
           it "should post to the correct resource" do
-            @client.update_article(1, :subject => "API Tips", :main_content => "Tips on using our API")
+            @client.update_article(1, :subject => subject, :body => body)
             a_put("articles/1.#{format}").
               should have_been_made
           end
 
-          it "should return the new topic" do
-            topic = @client.update_article(1, :subject => "API Tips", :main_content => "Tips on using our API")
+          it "should return the updated article" do
+            article = @client.update_article(1, :subject => subject, :body => body)
 
-            topic.subject.should == "API Tips"
-            topic.main_content.should == "Tips on using our API"
+            article._links.self[:class].should == 'article'
+            article.body.should == body
           end
 
         end
@@ -112,7 +116,7 @@ describe Desk::Client do
 
           before do
             stub_delete("articles/1.#{format}").
-              to_return(:body => fixture("article_destroy.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return({})
           end
 
           it "should post to the correct resource" do
@@ -120,12 +124,6 @@ describe Desk::Client do
             a_delete("articles/1.#{format}").
               should have_been_made
           end
-
-          it "should return a successful response" do
-            topic = @client.delete_article(1)
-            topic.success.should == true
-          end
-
         end
       end
 

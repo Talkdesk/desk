@@ -22,11 +22,11 @@ describe Desk::Client do
               should have_been_made
           end
 
-          it "should return up to 100 customers worth of extended information" do
+          it "should return a list of customers" do
             customers = @client.customers
 
-            customers.results.should be_a Array
-            customers.results.first.customer.first_name.should == "Jeremy"
+            customers.entries.should be_a Array
+            customers.entries.first._links.self[:class].should == "customer"
           end
 
         end
@@ -47,11 +47,10 @@ describe Desk::Client do
               should have_been_made
           end
 
-          it "should return up to 100 customers worth of extended information" do
+          it "should return a customer entry" do
             customer = @client.customer(1)
 
-            customer.first_name.should == "Jeremy"
-            customer.addresses.first.address.city.should == "Commack"
+            customer._links.self[:class].should == "customer"
           end
 
         end
@@ -67,16 +66,16 @@ describe Desk::Client do
           end
 
           it "should get the correct resource" do
-            @client.create_customer(:name => "Chris Warren", :twitter => "cdwarren")
+            @client.create_customer(:name => "John Doe")
             a_post("customers.#{format}").
               should have_been_made
           end
 
           it "should return the information about this user" do
-            customer = @client.create_customer(:name => "John Smith", :twitter => "cdwarren")
+            customer = @client.create_customer(:first_name => "John", :last_name => "Doe")
 
+            customer._links.self[:class].should == "customer"
             customer.first_name.should == "John"
-            customer.phones.first.phone.phone.should == "123-456-7890"
           end
 
         end
@@ -92,63 +91,45 @@ describe Desk::Client do
           end
 
           it "should get the correct resource" do
-            @client.update_customer(1, :name => "Chris Warren", :twitter => "cdwarren")
+            @client.update_customer(1, :first_name => "Johnny", :last_name => "Doe")
             a_put("customers/1.#{format}").
               should have_been_made
           end
 
-          it "should return the information about this user" do
-            customer = @client.update_customer(1, :name => "Joslyn Esser")
+          it "should return the updated customer entry" do
+            customer = @client.update_customer(1, :first_name => "Johnny", :last_name => "Doe")
 
-            customer.first_name.should == "Joslyn"
+            customer._links.self[:class].should == "customer"
+            customer.first_name.should == "Johnny"
           end
 
         end
       end
 
-      describe ".create_customer_email" do
+      describe ".search_customers" do
 
-        context "create" do
+        context "search" do
+          let(:first_name_param) { "John" }
+          let(:last_name_param) { "Doe" }
 
           before do
-            stub_post("customers/1/emails.#{format}").
-              to_return(:body => fixture("customer_create_email.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            stub_get("customers/search.#{format}?first_name=#{first_name_param}&last_name=#{last_name_param}").
+              to_return(:body => fixture("customer_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
-            @client.create_customer_email(1, :email => "foo@example.com")
-            a_post("customers/1/emails.#{format}").
+            @client.search_customers(:first_name => first_name_param, :last_name => last_name_param)
+            a_get("customers/search.#{format}?first_name=#{first_name_param}&last_name=#{last_name_param}").
               should have_been_made
           end
 
-          it "should return the information about this user" do
-            email = @client.create_customer_email(1, :email => "api@example.com")
+          it "should return a list of customers with matching criteria" do
+            search_results = @client.search_customers(:first_name => first_name_param, :last_name => last_name_param)
 
-            email.email.should == "api@example.com"
-          end
-
-        end
-      end
-
-      describe ".update_customer_email" do
-
-        context "update" do
-
-          before do
-            stub_put("customers/1/emails/2.#{format}").
-              to_return(:body => fixture("customer_update_email.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.update_customer_email(1, 2, :email => "foo@example.com")
-            a_put("customers/1/emails/2.#{format}").
-              should have_been_made
-          end
-
-          it "should return the information about this user" do
-            email = @client.update_customer_email(1, 2, :email => "api@example.com")
-
-            email.email.should == "api@example.com"
+            customer = search_results.entries.first
+            customer._links.self[:class].should == "customer"
+            customer.first_name.should == first_name_param
+            customer.last_name.should == last_name_param
           end
 
         end
